@@ -1,9 +1,14 @@
-import dynamic from 'next/dynamic';
-import { styled } from '@mui/material/styles';
-import { Box } from '@mui/material';
-import EditorToolbar, { formats } from './EditorToolbar';
+import dynamic from "next/dynamic";
+import { styled } from "@mui/material/styles";
+import { Box } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
-const ReactQuill = dynamic(() => import('react-quill'), {
+const EditorToolbar = dynamic(() => import("./EditorToolbar"), {
+  loading: () => <p>loading...</p>,
+
+  ssr: false,
+});
+
+const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
   loading: () => (
     <Box
@@ -12,32 +17,57 @@ const ReactQuill = dynamic(() => import('react-quill'), {
         left: 0,
         right: 0,
         bottom: 0,
-        position: 'absolute',
-        bgcolor: 'background.paper',
+        position: "absolute",
+        bgcolor: "background.paper",
       }}
     >
       Loading...
     </Box>
   ),
 });
+const formats = [
+  "align",
+  "background",
+  "blockquote",
+  "bold",
+  "bullet",
+  "code",
+  "code-block",
+  "color",
+  "direction",
+  "font",
+  "formula",
+  "header",
+  "image",
+  "indent",
+  "italic",
+  "link",
+  "list",
+  "script",
+  "size",
+  "strike",
+  "table",
+  "underline",
+  "video",
+];
 
 const RootStyle = styled(Box)(({ theme }: any) => ({
-  overflow: 'hidden',
-  position: 'relative',
+  overflow: "hidden",
+  position: "relative",
   borderRadius: theme.shape.borderRadius,
   border: `solid 1px ${theme.palette.grey[500_32]}`,
-  '& .ql-container.ql-snow': {
-    borderColor: 'transparent',
+  "& .ql-container.ql-snow": {
+    borderColor: "transparent",
     ...theme.typography.body1,
     fontFamily: theme.typography.fontFamily,
   },
-  '& .ql-editor': {
+  "& .ql-editor": {
     minHeight: 200,
-    '&.ql-blank::before': {
-      fontStyle: 'normal',
+    "&.ql-blank::before": {
+      fontStyle: "normal",
       color: theme.palette.text.disabled,
     },
-    '& pre.ql-syntax': {
+    "& pre.ql-syntax": {
       ...theme.typography.body2,
       padding: theme.spacing(2),
       borderRadius: theme.shape.borderRadius,
@@ -47,7 +77,7 @@ const RootStyle = styled(Box)(({ theme }: any) => ({
 }));
 
 export default function Editor({
-  id = 'admincp-quill',
+  id = "admincp-quill",
   error,
   value,
   onChange,
@@ -60,6 +90,7 @@ export default function Editor({
     toolbar: {
       container: `#${id}`,
     },
+
     history: {
       delay: 500,
       maxStack: 100,

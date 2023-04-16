@@ -1,31 +1,29 @@
-import EditorToolbarStyle from './EditorToolbarStyle';
-
-const HEADINGS = ['Heading 1', 'Heading 2', 'Heading 3', 'Heading 4', 'Heading 5', 'Heading 6'];
-
-export const formats = [
-  'align',
-  'background',
-  'blockquote',
-  'bold',
-  'bullet',
-  'code',
-  'code-block',
-  'color',
-  'direction',
-  'font',
-  'formula',
-  'header',
-  'image',
-  'indent',
-  'italic',
-  'link',
-  'list',
-  'script',
-  'size',
-  'strike',
-  'table',
-  'underline',
-  'video',
+import EditorToolbarStyle from "./EditorToolbarStyle";
+import  { Quill } from "react-quill";
+import "react-quill/dist/quill.snow.css";
+var Size = Quill.import("formats/size");
+Size.whitelist = [
+  "9px",
+  "10px",
+  "11px",
+  "12px",
+  "14px",
+  "16px",
+  "18px",
+  "20px",
+  "22px",
+  "24px",
+  "26px",
+  "28px",
+];
+Quill.register(Size, true);
+const HEADINGS = [
+  "Heading 1",
+  "Heading 2",
+  "Heading 3",
+  "Heading 4",
+  "Heading 5",
+  "Heading 6",
 ];
 
 export default function EditorToolbar({ id, isSimple, ...other }: any) {
@@ -42,7 +40,15 @@ export default function EditorToolbar({ id, isSimple, ...other }: any) {
             <option value="">Normal</option>
           </select>
         </div>
-
+        <div className="ql-formats">
+          <select className="ql-size">
+            {Size.whitelist.map((size: any, index: number) => (
+              <option value={size} selected={size.includes("12")}>
+                {size}
+              </option>
+            ))}
+          </select>
+        </div>
         <div className="ql-formats">
           <button type="button" className="ql-bold" />
           <button type="button" className="ql-italic" />
@@ -60,8 +66,12 @@ export default function EditorToolbar({ id, isSimple, ...other }: any) {
         <div className="ql-formats">
           <button type="button" className="ql-list" value="ordered" />
           <button type="button" className="ql-list" value="bullet" />
-          {!isSimple && <button type="button" className="ql-indent" value="-1" />}
-          {!isSimple && <button type="button" className="ql-indent" value="+1" />}
+          {!isSimple && (
+            <button type="button" className="ql-indent" value="-1" />
+          )}
+          {!isSimple && (
+            <button type="button" className="ql-indent" value="+1" />
+          )}
         </div>
 
         {!isSimple && (
