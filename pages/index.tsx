@@ -1,4 +1,4 @@
-import type { ReactElement } from "react";
+import { ReactElement, useState } from "react";
 import { Grid, Box } from "@mui/material";
 import PageContainer from "../src/components/container/PageContainer";
 // components
@@ -9,39 +9,21 @@ import ProductPerformance from "../src/components/dashboard/ProductPerformance";
 import Blog from "../src/components/dashboard/Blog";
 import MonthlyEarnings from "../src/components/dashboard/MonthlyEarnings";
 import FullLayout from "../src/layouts/full/FullLayout";
-import Editor from "../src/components/Editor";
+import Editor from "../src/components/editor";
 
 
 
 export default function Home() {
+  const [content, setContent] = useState<any>();
+  const handleChange = (e: any) => {
+    console.log("e", e);
+    setContent(e);
+  };
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
       <Box>
-        <Editor />
-        {/* <Grid container spacing={3}>
-          <Grid item xs={12} lg={8}>
-            <SalesOverview />
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <Grid container spacing={3}>
-              <Grid item xs={12}>
-                <YearlyBreakup />
-              </Grid>
-              <Grid item xs={12}>
-                <MonthlyEarnings />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} lg={4}>
-            <RecentTransactions />
-          </Grid>
-          <Grid item xs={12} lg={8}>
-            <ProductPerformance />
-          </Grid>
-          <Grid item xs={12}>
-            <Blog />
-          </Grid>
-        </Grid> */}
+        <Editor onChange={(e: any) => handleChange(e)} value={content} />
+        <div dangerouslySetInnerHTML={{ __html: content }} />
       </Box>
     </PageContainer>
   );
