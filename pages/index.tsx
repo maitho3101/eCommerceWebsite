@@ -11,6 +11,8 @@ import MonthlyEarnings from "../src/components/dashboard/MonthlyEarnings";
 import FullLayout from "../src/layouts/full/FullLayout";
 import Editor from "../src/components/Editor";
 
+
+
 export default function Home() {
   return (
     <PageContainer title="Dashboard" description="this is Dashboard">
