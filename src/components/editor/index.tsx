@@ -1,7 +1,9 @@
 import dynamic from "next/dynamic";
 import { styled } from "@mui/material/styles";
-import { Box } from "@mui/material";
+import { Box, FormControl, TextField, Button } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
+import { useEffect, useState } from "react";
+import axios from "axios";
 const EditorToolbar = dynamic(() => import("./EditorToolbar"), {
   loading: () => <p>loading...</p>,
 
@@ -103,27 +105,26 @@ export default function Editor({
   };
 
   return (
-    <div>
+    <Box>
       <RootStyle
-        sx={{
-          ...(error && {
-            border: (theme) => `solid 1px ${theme.palette.error.main}`,
-          }),
-          ...sx,
-        }}
-      >
-        <EditorToolbar id={id} isSimple={simple} />
-        <ReactQuill
-          value={value}
-          onChange={onChange}
-          modules={modules}
-          formats={formats}
-          placeholder="Write something awesome..."
-          {...other}
-        />
-      </RootStyle>
-
-      {helperText && helperText}
-    </div>
+          sx={{
+            ...(error && {
+              border: (theme) => `solid 1px ${theme.palette.error.main}`,
+            }),
+            ...sx,
+          }}
+        >
+          <EditorToolbar id={id} isSimple={simple} />
+          <ReactQuill
+            value={value}
+            onChange={onChange}
+            modules={modules}
+            formats={formats}
+            placeholder="Write something awesome..."
+            {...other}
+          />
+        </RootStyle>
+        {helperText && helperText}
+    </Box>
   );
 }
