@@ -105,7 +105,7 @@ export default function Editor({
   };
 
   return (
-    <Box>
+    <Box sx={{border: '1px solid black', marginTop: '20px', width: "100%"}}>
       <RootStyle
           sx={{
             ...(error && {

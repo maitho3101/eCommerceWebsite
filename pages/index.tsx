@@ -1,5 +1,5 @@
 import { ReactElement, useState } from "react";
-import { Grid, Box, FormControl, TextField, Button } from "@mui/material";
+import { Checkbox, Box, FormControl, TextField, Button } from "@mui/material";
 import PageContainer from "../src/components/container/PageContainer";
 // components
 import SalesOverview from "../src/components/dashboard/SalesOverview";
@@ -43,10 +43,10 @@ export default function Home() {
   });
   }
   return (
-    <PageContainer title="Dashboard" description="this is Dashboard">
-      <Box>
-        <FormControl>
-            <TextField
+    <PageContainer title="Web admin phong thủy" description="Quản lý web phong thủy">
+      <Box sx={{border: '2px solid black', padding: '20px', display:'flex', flexDirection: 'column', alignItems: 'center'}}>
+        <FormControl sx={{width: "100%"}}>
+            <TextField sx={{width: "100%"}}
               id="title-post"
               label="Tiêu đề bài viết"
               placeholder="Write here"
@@ -57,8 +57,7 @@ export default function Home() {
             />
         </FormControl>
         <Editor onChange={(e: any) => handleChange(e)} value={content} />
-        <div dangerouslySetInnerHTML={{ __html: content }} />
-        <Button onClick={createPost}>Tạo bài viết</Button>
+        <Button variant="contained" sx={{marginTop: '20px', border: '1px solid black'}} onClick={createPost}>Tạo bài viết</Button> 
       </Box>
     </PageContainer>
   );
