@@ -47,7 +47,6 @@ const Header = ({toggleMobileSidebar}: ItemType) => {
           <IconMenu width="20" height="20" />
         </IconButton>
         <Box sx={{height: "100%", width: "100%", textAlign: "center"}}>
-          <p style={{fontSize: '40px', fontWeight: 700}}>Tạo bài viết</p>
         </Box>
         
         <Stack sx={{}} spacing={1} direction="row" alignItems="center">

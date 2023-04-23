@@ -26,7 +26,7 @@ const Menuitems = [
     id: uniqueId(),
     title: "Tạo bài viết mới",
     icon: IconLayoutDashboard,
-    href: "/",
+    href: "/posts/create",
   },
 ];
 

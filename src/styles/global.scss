@@ -1,2 +1,14 @@
 @import './createPost.scss';
 @import './editor.scss';
+
+.list-posts-content {
+    border: 2px solid black;    
+    width: 100%;
+    height: auto;
+}
+
+.list-posts-detail {
+    overflow-y: scroll;
+    width: 100%;
+    height: 500px;
+}
