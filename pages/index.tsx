@@ -13,7 +13,7 @@ import Editor from "../src/components/editor";
 import axios from "axios";
 import Image from "../src/components/Image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-
+import { useEffect } from "react";
 
 interface Post {
   image: string,
@@ -28,16 +28,17 @@ interface Post {
 export default function Home() {
   const [content, setContent] = useState<any>();
   const [title, setTitle] = useState("");
-  const [listPosts, setListPost] = useState<Post[]>([
-    {
-      image: 'abc',
-      title: 'Title bài viết',
-      author: 'Tác giả',
-      type: 1,
-      content: "<div>Hello World</div>",
-      id: 123,
-    }
-  ]);
+  const [listPosts, setListPost] = useState<Post[]>([]);
+  useEffect(() => {
+    axios({
+      method: 'get',
+      url: 'http://10.248.158.167:1112/posts',
+    }).then((res) => {
+      setListPost(res.data.content)
+    }, (err) => {
+      console.log(err)
+    })
+  },[])
   const handleChange = (e: any) => {
     console.log("e", e);
     setContent(e);
@@ -54,13 +55,11 @@ export default function Home() {
       const ListPostsContent = listPosts.map((post) => {
           return (
             <Box>
-              <Box sx={{display: "flex", flexDirection: "row", width: "100%", height: "5%", backgroundColor: "red"}}>
-                <p>hello</p>
+              <Box sx={{display: "flex", flexDirection: "row", width: "100%", height: "5%"}}>
+                <p>{post.title}</p>
                 <Box>
-                  <FontAwesomeIcon className={abc}></FontAwesomeIcon>
                 </Box>
               </Box>
-              <Box dangerouslySetInnerHTML={{ __html: post.content}}></Box>
             </Box>
               
           )
@@ -79,8 +78,9 @@ export default function Home() {
       <Box
         className="list-posts-content flex-row full-width full-height"
         sx={{
-          height: "300px",
+          height: "150px",
           marginTop: "40px",
+          backgroundColor: "red",
         }}
       >
         <ListPostComponents></ListPostComponents>

@@ -4,11 +4,17 @@ import { Box, FormControl, TextField, Button } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { Quill } from 'react-quill';
+import { ImageResize } from 'quill-image-resize-module';
+
+
 const EditorToolbar = dynamic(() => import("./EditorToolbar"), {
   loading: () => <p>loading...</p>,
 
   ssr: false,
 });
+
+
 
 const ReactQuill = dynamic(() => import("react-quill"), {
   ssr: false,
@@ -78,7 +84,8 @@ const RootStyle = styled(Box)(({ theme }: any) => ({
   },
 }));
 
-export default function Editor({
+export default function Editor(
+  {
   id = "admincp-quill",
   error,
   value,
@@ -103,7 +110,7 @@ export default function Editor({
       matchVisual: false,
     },
   };
-
+  
   return (
     <Box sx={{border: '1px solid black', marginTop: '20px', width: "100%"}}>
       <RootStyle
