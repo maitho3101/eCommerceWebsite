@@ -14,13 +14,12 @@ import axios from "axios";
 import Image from "../src/components/Image";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { useEffect } from "react";
+import { faInfoCircle, faPen, faTrash, faStar } from "@fortawesome/free-solid-svg-icons";
 
 interface Post {
   image: string,
   title: string,
   author: string,
-  type: Number,
-  content: string,
   id: Number,
 }
 
@@ -28,7 +27,20 @@ interface Post {
 export default function Home() {
   const [content, setContent] = useState<any>();
   const [title, setTitle] = useState("");
-  const [listPosts, setListPost] = useState<Post[]>([]);
+  const [listPosts, setListPost] = useState<Post[]>([{
+    title: "Bài viết dành cho người mù",
+    image: "abc",
+    author: "longhvh",
+    id: 1,
+  } ,
+  {
+    title: "Bài viết dành cho người mù",
+    image: "abc",
+    author: "longhvh",
+    id: 1,
+  } ,
+
+]);
   useEffect(() => {
     axios({
       method: 'get',
@@ -46,44 +58,30 @@ export default function Home() {
   axios.defaults.baseURL = 'http://10.248.158.167:1112';
   
   const ListPosts = () => {
-
-    const redirect = (id: any) => {
-      
-    }
-
-    const ListPostComponents = (props:any) => {
       const ListPostsContent = listPosts.map((post) => {
           return (
-            <Box>
-              <Box sx={{display: "flex", flexDirection: "row", width: "100%", height: "5%"}}>
-                <p>{post.title}</p>
-                <Box>
+            <Box className="list-posts">
+                <Box className="list-posts-image">
+                  <Image className="posts-image" src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"></Image>
+                </Box>
+                <Box className="list-posts-title">
+                  <p>{post.title}</p>
+                </Box>
+                <Box className="group-action-icon">
+                  <FontAwesomeIcon className="action-icon" icon={faInfoCircle}></FontAwesomeIcon>
+                  <FontAwesomeIcon className="action-icon" icon={faPen}></FontAwesomeIcon>
+                  <FontAwesomeIcon className="action-icon" icon={faTrash}></FontAwesomeIcon>
+                  <FontAwesomeIcon className="action-icon" icon={faStar}></FontAwesomeIcon>
                 </Box>
               </Box>
-            </Box>
-              
           )
       })
-      return (
-        <Box
-          className="list-posts-detail flex-col one-third-row full-height"
-        >
-          {ListPostsContent}
-        </Box>
-      )
-    }
-    
 
     return (
       <Box
         className="list-posts-content flex-row full-width full-height"
-        sx={{
-          height: "150px",
-          marginTop: "40px",
-          backgroundColor: "red",
-        }}
       >
-        <ListPostComponents></ListPostComponents>
+        {ListPostsContent}
       </Box>
     );
   }

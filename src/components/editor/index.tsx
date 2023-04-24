@@ -15,24 +15,19 @@ const EditorToolbar = dynamic(() => import("./EditorToolbar"), {
 });
 
 
-
-const ReactQuill = dynamic(() => import("react-quill"), {
-  ssr: false,
-  loading: () => (
-    <Box
-      sx={{
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        position: "absolute",
-        bgcolor: "background.paper",
-      }}
-    >
-      Loading...
-    </Box>
-  ),
-});
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill");
+    const { default: ImageResize } = await import("quill-image-resize-module");
+    RQ.Quill.register("modules/imageResize", ImageResize);
+    return function forwardRef({ forwardedRef, ...props }: any) {
+      return <RQ ref={forwardedRef} {...props} />;
+    };
+  },
+  {
+    ssr: false,
+  }
+);
 const formats = [
   "align",
   "background",
