@@ -10,14 +10,32 @@ import { Label } from "@mui/icons-material";
 
 
 export default function CreateItem() {
-  const [content, setContent] = useState<any>();
-  const [title, setTitle] = useState("");
+  const [title, setTitle] = useState<string>("");
+  const [price, setPrice] = useState<Number>();
+  const [content, setContent] = useState();
+  const [image, setImage] = useState<File[]>([]);
   const handleChange = (e: any) => {
     console.log("e", e);
     setContent(e);
   };
+  const handleTitle = (e: any) => {
+    setTitle(e);
+  }
+  const handlePrice = (e: string) => {
+    console.log(e);
+    var num: Number = +e
+    setPrice(num);
+  }
+  const handleImage = (e: any) => {
+    let listFile: File[] = [];
+    listFile[0] = e.target.files[0];
+    console.log(e.target.files[0]);
+    setImage(listFile);
+  }
   axios.defaults.baseURL = 'http://10.248.158.167:1112';
-  const createPost = () => {
+  const createPost = (formData: any) => {
+    console.log(title);
+    console.log(price);
     axios({
       headers: {
         'Accept': '*/*',
@@ -26,17 +44,18 @@ export default function CreateItem() {
         'Access-Control-Allow-Origin': '*',
       },
       method: 'post',
-      url: '/posts',
+      url: '/item',
       data: {
         title: title,
-        content: content,
+        price: price,
+        imagesTitle: image,
       }
     })
     .then((response) => {
       console.log(response);
     }, (error) => {
       console.log(error);
-  });
+    });
   }
 
     
@@ -48,19 +67,20 @@ export default function CreateItem() {
       <Box sx={{border: '2px solid black', padding: '20px', display:'flex', flexDirection: 'column', alignItems: 'center'}}>
         <FormControl sx={{width: "100%"}}>
           <p>Tên sản phẩm</p>
-          <TextField/>
+          <TextField onChange={(e: any) => handleTitle(e.target.value)}/>
           <p>Ảnh sản phẩm</p>
-          <Input
-
-              type="file"
+          <input
+              type="file" multiple
+              accept="image/*"
               name="myImage"
+              onChange={(e: any) => handleImage(e)}
             />    
           <Box>
             <p>Ảnh demo</p>
             <Image src="https://images.unsplash.com/photo-1575936123452-b67c3203c357?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aW1hZ2V8ZW58MHx8MHx8&w=1000&q=80"></Image>
           </Box>
           <p>Giá tiền 1 đơn vị (VNĐ)</p>
-          <TextField/>    
+          <TextField onChange={(e: any) => handlePrice(e.target.value)}/>    
           <p>Giới thiệu sản phẩm</p>
           <Editor onChange={(e: any) => handleChange(e)} value={content} />
         </FormControl>
