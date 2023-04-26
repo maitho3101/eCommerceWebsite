@@ -3,9 +3,10 @@ import {
   IconCopy,
   IconLayoutDashboard,
   IconLogin,
-  IconMoodHappy,
-  IconTypography,
-  IconUserPlus,
+  IconBasket,
+  IconShoppingCart,
+  IconPlus,
+  IconBook,
 } from "@tabler/icons-react";
 
 import { uniqueId } from "lodash";
@@ -13,62 +14,47 @@ import { uniqueId } from "lodash";
 const Menuitems = [
   {
     navlabel: true,
-    subheader: "Home",
+    subheader: "Bài viết",
   },
 
   {
     id: uniqueId(),
-    title: "Tạo bài viết mới",
-    icon: IconLayoutDashboard,
+    title: "Danh sách bài viết",
+    icon: IconBook,
     href: "/",
   },
   {
-    navlabel: true,
-    subheader: "Utilities",
-  },
-  {
     id: uniqueId(),
-    title: "Typography",
-    icon: IconTypography,
-    href: "/utilities/typography",
+    title: "Tạo bài viết mới",
+    icon: IconPlus,
+    href: "/posts/create",
   },
-  {
-    id: uniqueId(),
-    title: "Shadow",
-    icon: IconCopy,
-    href: "/utilities/shadow",
-  },
+
   {
     navlabel: true,
-    subheader: "Auth",
+    subheader: "Sản phẩm",
   },
   {
     id: uniqueId(),
-    title: "Login",
-    icon: IconLogin,
-    href: "/authentication/login",
+    title: "Danh sách sản phẩm",
+    icon: IconBasket,
+    href: "/items",
   },
   {
     id: uniqueId(),
-    title: "Register",
-    icon: IconUserPlus,
-    href: "/authentication/register",
+    title: "Thêm sản phẩm mới",
+    icon: IconPlus,
+    href: "/items/create",
   },
   {
     navlabel: true,
-    subheader: "Extra",
+    subheader: "Đơn hàng",
   },
   {
     id: uniqueId(),
-    title: "Icons",
-    icon: IconMoodHappy,
-    href: "/icons",
-  },
-  {
-    id: uniqueId(),
-    title: "Sample Page",
-    icon: IconAperture,
-    href: "/sample-page",
+    title: "Danh sách đơn hàng",
+    icon: IconShoppingCart,
+    href: "/orders",
   },
 ];
 

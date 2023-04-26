@@ -2,29 +2,26 @@ import dynamic from "next/dynamic";
 import { styled } from "@mui/material/styles";
 import { Box } from "@mui/material";
 import "react-quill/dist/quill.snow.css";
+import { Quill } from "react-quill";
 const EditorToolbar = dynamic(() => import("./EditorToolbar"), {
   loading: () => <p>loading...</p>,
 
   ssr: false,
 });
 
-const ReactQuill = dynamic(() => import("react-quill"), {
-  ssr: false,
-  loading: () => (
-    <Box
-      sx={{
-        top: 0,
-        left: 0,
-        right: 0,
-        bottom: 0,
-        position: "absolute",
-        bgcolor: "background.paper",
-      }}
-    >
-      Loading...
-    </Box>
-  ),
-});
+const ReactQuill = dynamic(
+  async () => {
+    const { default: RQ } = await import("react-quill");
+    const { default: ImageResize } = await import("quill-blot-formatter");
+    RQ.Quill.register("modules/imageResize", ImageResize);
+    return function forwardRef({ forwardedRef, ...props }: any) {
+      return <RQ ref={forwardedRef} {...props} />;
+    };
+  },
+  {
+    ssr: false,
+  }
+);
 const formats = [
   "align",
   "background",
@@ -100,10 +97,14 @@ export default function Editor({
     clipboard: {
       matchVisual: false,
     },
+    imageResize: {
+      parchment: Quill.import("parchment"),
+      modules: ["Resize", "DisplaySize"],
+    },
   };
 
   return (
-    <div>
+    <Box sx={{ border: "1px solid black", marginTop: "20px", width: "100%" }}>
       <RootStyle
         sx={{
           ...(error && {
@@ -122,8 +123,7 @@ export default function Editor({
           {...other}
         />
       </RootStyle>
-
       {helperText && helperText}
-    </div>
+    </Box>
   );
 }

@@ -1,2 +1,67 @@
 @import './createPost.scss';
 @import './editor.scss';
+
+.list-posts-content {
+    width: 100%;
+    height: auto;
+}
+
+.list-posts-detail {
+    width: 100%;
+    height: 200px;
+}
+.group-action-icon {
+    padding: 10px;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: 0px;
+    width: 20%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    @media (max-width: 700px){
+        margin-left: 0;
+      }
+}
+
+.action-icon {
+    font-size: 20px;
+}
+
+.list-posts {
+    margin-top: 20px;
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+    align-items: center;
+    border: 2px solid black;
+    @media (max-width: 700px){
+        flex-direction: column;
+        gap: 12px;
+      }
+}
+
+.list-posts-title {
+    text-align: center;
+    width: 80%;
+    height: 100%;
+    border: 1px solid black;
+    border-left: none;
+    @media (max-width: 700px){
+        width: 90%;
+        border-left: 1px solid black;
+      }
+}
+
+.list-posts-image {
+    
+    width: 20%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    object-fit: cover;
+    align-items: center;
+    border: 1px solid black;
+}

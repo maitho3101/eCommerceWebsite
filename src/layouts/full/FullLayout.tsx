@@ -16,7 +16,6 @@ const PageWrapper = styled("div")(() => ({
   paddingBottom: "60px",
   flexDirection: "column",
   zIndex: 1,
-  backgroundColor: "transparent",
 }));
 
 interface Props {
@@ -41,7 +40,7 @@ const FullLayout: React.FC<Props> = ({ children }) => {
       {/* ------------------------------------------- */}
       {/* Main Wrapper */}
       {/* ------------------------------------------- */}
-      <PageWrapper className="page-wrapper">
+      <PageWrapper className="page-wrapper" >
         {/* ------------------------------------------- */}
         {/* Header */}
         {/* ------------------------------------------- */}
@@ -54,7 +53,6 @@ const FullLayout: React.FC<Props> = ({ children }) => {
         <Container
           sx={{
             paddingTop: "20px",
-            maxWidth: "1200px",
           }}
         >
           {/* ------------------------------------------- */}
